@@ -13,6 +13,13 @@ var level = 0;
 // used this as i used "A" as the starting point
 var started = 0;
 
+
+function reset(){
+  userClickedPattern = [];
+  gamePattern = [];
+  level = 0;
+  started = 0;
+}
 // next random color added to the gamepattern 
 function nextSequence() {
   userClickedPattern = [];
@@ -40,40 +47,46 @@ let levelRound = 0;
 // event listener for the all button's combined using jQuery
 $(".btn").click(function (event) {
   // getting id of the clicked button
-  var userChosenColor = event.target.id;
+  if (started == 1) {
+    
+    
+    var userChosenColor = event.target.id;
 
-  userClickedPattern.push(userChosenColor);
-  // playing sound
-  playSound(userChosenColor);
-  
-  // increment levelRound
-  levelRound++;
+    userClickedPattern.push(userChosenColor);
+    // playing sound
+    playSound(userChosenColor);
+    
+    // increment levelRound
+    levelRound++;
 
-  // for the user
-  if (level == levelRound) {
-    levelRound = 0;
-    // checking answer and if it is correct then move to next level
-    if (checkAnswer(level)) {
-      console.log("success");
-      nextSequence();
-    }
-    // logic if the answer is wrong
-    else{
-        let wrong = new Audio("./sounds/wrong.mp3");
-        wrong.play();
-        // for the game over effect adding and removing class
-        $("body").addClass("game-over");
-        setTimeout(function(){
-            $("body").removeClass("game-over");
-        }, 200)
-        $("h1").text("Game over, Press A to restart");
+    // for the user
+    if (level == levelRound) {
+      levelRound = 0;
+      // checking answer and if it is correct then move to next level
+      if (checkAnswer(level)) {
+        // console.log("success");
+        setTimeout(() => {
+          nextSequence();
+        }, 350);
+      }
+      // logic if the answer is wrong
+      else{
+          let wrong = new Audio("./sounds/wrong.mp3");
+          wrong.play();
+          // for the game over effect adding and removing class
+          $("body").addClass("game-over");
+          setTimeout(function(){
+              $("body").removeClass("game-over");
+          }, 200)
+          $("h1").text("Game over, Press A to restart");
 
-        // reseting game
-        started = 0;
-        level = 0;
-        levelRound = 0;
-        userClickedPattern = [];
-        gamePattern = [];
+          // reseting game
+          started = 0;
+          level = 0;
+          levelRound = 0;
+          userClickedPattern = [];
+          gamePattern = [];
+      }
     }
   }
 });
@@ -95,12 +108,9 @@ function animatePress(currentColor) {
 }
 
 $(document).keypress(function (event) {
-  // if (started == 0 && event.key == "A") {
-  //   nextSequence();
-  //   started = 1;
-    
-  // }
-  startGame();
+  if (event.key == 'a' || event.key == "A") {
+    startGame(); 
+  }
 });
 
 // for checking answer
@@ -117,14 +127,14 @@ function checkAnswer(level) {
 }
 
 function startGame(){
-  if (started == 0 && event.key == "A") {
+  if (started == 0) {
+    reset();
     nextSequence();
     started = 1;
   }
 }
 $("button").click(function(){
-  if (started == 0) {
+  reset();
     nextSequence();
     started = 1;
-  }
 })

@@ -3,10 +3,11 @@ body {
   background-color: #011F3F;
 }
 
+
 #level-title {
   font-family: 'Press Start 2P', cursive;
   font-size: 3rem;
-  margin:  5%;
+  margin:  2%;
   color: #FEF2BF;
 }
 
@@ -18,7 +19,7 @@ body {
 }
 
 .btn {
-  margin: 25px;
+  margin: 10px;
   display: inline-block;
   height: 200px;
   width: 200px;
@@ -58,9 +59,18 @@ button{
   border-radius: 20px;
 }
 /* media query for mobile devices */
-@media screen and (max-width: 1150px){
+@media (max-width: 1150px){
   h1{
     font-size: 2rem;
+  }
+  .container{
+    width: 100%;
+  }
+}
+
+@media (max-width: 950px){
+  h1{
+    font-size: 1rem;
   }
   .container{
     width: 100%;
@@ -68,23 +78,79 @@ button{
   .btn {
     margin: 10px;
     display: inline-block;
-    height: 300px;
-    width: 300px;
+    height: 100px;
+    width: 100px;
     border: 5px solid black;
     border-radius: 20%;
+  }
+  
+}
+
+
+/* button style */
+.button-85 {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-85:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
   }
 }
 
-@media screen and (max-width: 550px){
-  .btn {
-    margin: 10px;
-    display: inline-block;
-    height: 300px;
-    width: 300px;
-    border: 5px solid black;
-    border-radius: 20%;
-  }
-  .row{
-    margin: 50px;
-  }
+.button-85:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
 }
